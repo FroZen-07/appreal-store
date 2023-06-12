@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="_navbar" class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Apparel Store</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">View Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/cart">View Cart</a>
+        </li>
+        <li class="nav-item">
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-link nav-link">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<nav th:fragment="_adminNavbar" class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Apparel Store</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">View Profile</a>
+        </li>
+        <li class="nav-item">
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-link nav-link">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<nav th:fragment="_profileNavbar" class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Apparel Store</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-link nav-link">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</html>
+
+
+

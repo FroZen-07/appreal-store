@@ -1,10 +1,8 @@
 package dev.bitan.ecommerceapp.controller;
 
 import dev.bitan.ecommerceapp.model.Product;
-import dev.bitan.ecommerceapp.repository.ProductRepository;
 import dev.bitan.ecommerceapp.service.ProductService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
