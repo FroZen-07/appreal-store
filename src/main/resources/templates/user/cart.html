@@ -11,13 +11,13 @@
 <h1>User Cart</h1>
 <table class="table">
   <tr>
-    <th>Product ID</th>
+    <th>Product SKU</th>
     <th>Name</th>
     <th>Price</th>
     <th></th>
   </tr>
   <tr th:each="product : ${cart}">
-    <td th:text="${product.id}"></td>
+    <td th:text="${product.SKU}"></td>
     <td th:text="${product.name}"></td>
     <td th:text="${product.price}"></td>
     <td>

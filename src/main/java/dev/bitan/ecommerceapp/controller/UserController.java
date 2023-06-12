@@ -1,6 +1,7 @@
 package dev.bitan.ecommerceapp.controller;
 import dev.bitan.ecommerceapp.model.Product;
 import dev.bitan.ecommerceapp.repository.ProductRepository;
+import dev.bitan.ecommerceapp.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,33 +16,36 @@ import java.util.List;
 @PreAuthorize("hasRole('USER')")
 @RequestMapping("/user")
 public class UserController {
-    private final ProductRepository productRepository;
-    private List<Product> cart = new ArrayList<>();
+    private final ProductService productService;
+    private List<Product> cart;
 
-    public UserController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public UserController(ProductService productService) {
+        this.productService = productService;
+        this.cart = new ArrayList<>();
     }
 
     @GetMapping("/products")
     public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
-        Page<Product> productPage = productRepository.findAll(PageRequest.of(page, 10));
+        int pageSize = 10;
+        Page<Product> productPage = productService.findAllProducts(page, pageSize);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", pageSize);
         return "user/products";
     }
 
-
     @PostMapping("/cart/add/{id}")
-    public String addToCart(@PathVariable("id") String id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product id"));
-        cart.add(product);
+    public String addToCart(@PathVariable("id") String productId) {
+        Product product = productService.findProductById(productId);
+        if (product != null) {
+            cart.add(product);
+        }
         return "redirect:/user/cart";
     }
 
     @PostMapping("/cart/remove/{id}")
-    public String removeFromCart(@PathVariable("id") String id) {
-        cart.removeIf(product -> product.getId().equals(id));
+    public String removeFromCart(@PathVariable("id") String productId) {
+        cart.removeIf(product -> product.getId().equals(productId));
         return "redirect:/user/cart";
     }
 
