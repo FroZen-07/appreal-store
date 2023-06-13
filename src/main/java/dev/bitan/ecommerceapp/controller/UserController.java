@@ -84,15 +84,12 @@ public class UserController {
 
     @GetMapping("/cart")
     public String viewCart(Model model) {
-        List<Product> products = new ArrayList<>();
-        for (CartItem cartItem : cart) {
-            Product product = productService.findProductById(cartItem.getProductId());
-            if (product != null) {
-                product.setQuantity(cartItem.getQuantity());
-                products.add(product);
-            }
-        }
+        List<Product> products = productService.getProductsInCart(cart);
+        double totalPrice = productService.calculateTotalPrice(products);
+
         model.addAttribute("cart", products);
+        model.addAttribute("totalPrice", totalPrice);
+
         return "user/cart";
     }
 }
