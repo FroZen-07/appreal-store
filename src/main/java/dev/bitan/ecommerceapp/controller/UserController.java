@@ -1,8 +1,12 @@
 package dev.bitan.ecommerceapp.controller;
+import dev.bitan.ecommerceapp.model.CartItem;
 import dev.bitan.ecommerceapp.model.Product;
+import dev.bitan.ecommerceapp.model.User;
 import dev.bitan.ecommerceapp.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +19,10 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final ProductService productService;
-    private static final int PAGE_SIZE = 10;
 
-    private List<Product> cart;
+    private final int PAGE_SIZE = 10;
+
+    private List<CartItem> cart;
 
     public UserController(ProductService productService) {
         this.productService = productService;
@@ -42,20 +47,52 @@ public class UserController {
     public String addToCart(@PathVariable("id") String productId) {
         Product product = productService.findProductById(productId);
         if (product != null) {
-            cart.add(product);
+            CartItem cartItem = findCartItemById(productId);
+            if (cartItem != null) {
+                // Product already exists in cart, increase quantity
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+            } else {
+                // Product does not exist in cart, add new item
+                cart.add(new CartItem(productId));
+            }
         }
         return "redirect:/user/cart";
     }
 
     @PostMapping("/cart/remove/{id}")
     public String removeFromCart(@PathVariable("id") String productId) {
-        cart.removeIf(product -> product.getId().equals(productId));
+        CartItem cartItem = findCartItemById(productId);
+        if (cartItem != null) {
+            if (cartItem.getQuantity() > 1) {
+                // Decrease quantity if greater than 1
+                cartItem.setQuantity(cartItem.getQuantity() - 1);
+            } else {
+                // Remove item if quantity is 1
+                cart.remove(cartItem);
+            }
+        }
         return "redirect:/user/cart";
     }
 
+    private CartItem findCartItemById(String productId) {
+        return cart.stream()
+                .filter(item -> item.getProductId().equals(productId))
+                .findFirst()
+                .orElse(null);
+    }
+
+
     @GetMapping("/cart")
     public String viewCart(Model model) {
-        model.addAttribute("cart", cart);
+        List<Product> products = new ArrayList<>();
+        for (CartItem cartItem : cart) {
+            Product product = productService.findProductById(cartItem.getProductId());
+            if (product != null) {
+                product.setQuantity(cartItem.getQuantity());
+                products.add(product);
+            }
+        }
+        model.addAttribute("cart", products);
         return "user/cart";
     }
 }
