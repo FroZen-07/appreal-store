@@ -20,31 +20,32 @@
 
 <div class="container">
 <h1>User Cart</h1>
-<table class="table">
-  <tr>
-    <th>Images</th>
-    <th>Product SKU</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th></th>
-  </tr>
-  <tr th:each="product : ${cart}">
-    <td>
-      <div class="d-flex align-items-center">
-        <img th:src="${product.images[0]}" class="img-thumbnail product-image" alt="Product Image">
-      </div>
-    </td>
-    <td th:text="${product.SKU}"></td>
-    <td th:text="${product.name}"></td>
-    <td th:text="${product.price}"></td>
-    <td>
-      <form th:action="@{/user/cart/remove/{id}(id=${product.id})}" method="post">
-        <input type="hidden" name="_method" value="post">
-        <input class="btn btn-danger" type="submit" value="Remove">
-      </form>
-    </td>
-  </tr>
-</table>
+  <table class="table">
+    <tr>
+      <th>Images</th>
+<!--      <th>Product SKU</th>-->
+      <th>Name</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+    <tr th:each="product, stat : ${cart}">
+      <td>
+        <div class="d-flex align-items-center">
+          <img th:src="${product.images[0]}" class="img-thumbnail product-image" alt="Product Image">
+        </div>
+      </td>
+<!--      <td th:text="${product.SKU}"></td>-->
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.price}"></td>
+
+      <td>
+        <form th:action="@{/user/cart/remove/{id}(id=${product.id})}" method="post">
+          <input type="hidden" name="_method" value="post">
+          <input class="btn btn-danger" type="submit" value="Remove">
+        </form>
+      </td>
+    </tr>
+  </table>
 <div>
   <a class="btn btn-primary" th:href="@{/user/products}">Continue Shopping</a>
 </div>

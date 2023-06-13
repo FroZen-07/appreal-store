@@ -21,6 +21,7 @@ public class Product {
     private List<String> images;
     private List<String> size;
     private List<String> color;
+    private int quantity;
 
 
 }

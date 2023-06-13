@@ -12,6 +12,7 @@
 <div class="container">
   <h1>Add Product</h1>
   <form th:action="@{/admin/products/add}" method="post" enctype="multipart/form-data">
+
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input type="text" class="form-control" id="name" name="name" required>
@@ -21,17 +22,13 @@
       <input type="number" class="form-control" id="price" name="price" required>
     </div>
     <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+      <label for="quantity" class="form-label">Quantity</label>
+      <input type="number" class="form-control" id="quantity" name="quantity" required>
     </div>
     <div class="mb-3">
-      <label for="categories" class="form-label">Categories</label>
-      <input type="text" class="form-control" id="categories" name="categories" required>
+      <label for="images" class="form-label">Image URLs</label>
+      <textarea class="form-control" id="images" name="images" rows="5" required></textarea>
     </div>
-<!--    <div class="mb-3">-->
-<!--      <label for="image" class="form-label">Image URL</label>-->
-<!--      <input type="text" class="form-control" id="image" name="image" th:value="${product.image}" required>-->
-<!--    </div>-->
     <button type="submit" class="btn btn-primary">Add Product</button>
   </form>
 </div>

@@ -20,13 +20,13 @@
       <label for="price" class="form-label">Price</label>
       <input type="number" class="form-control" id="price" name="price" th:value="${product.price}" required>
     </div>
+<!--    <div class="mb-3">-->
+<!--      <label for="description" class="form-label">Description</label>-->
+<!--      <textarea class="form-control" id="description" name="description" rows="5" required th:text="${product.description}"></textarea>-->
+<!--    </div>-->
     <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea class="form-control" id="description" name="description" rows="5" required th:text="${product.description}"></textarea>
-    </div>
-    <div class="mb-3">
-      <label for="categories" class="form-label">Categories</label>
-      <input type="text" class="form-control" id="categories" name="categories" th:value="${product.categories}" required>
+      <label for="quantity" class="form-label">Quantity</label>
+      <input type="number" min="1" class="form-control" id="quantity" name="quantity" th:value="${product.quantity}" required>
     </div>
 <!--    <div class="mb-3">-->
 <!--      <label for="image" class="form-label">Image URL</label>-->

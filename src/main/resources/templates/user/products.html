@@ -28,9 +28,10 @@
     <thead>
     <tr>
       <th>Images</th>
-      <th>Product SKU</th>
+<!--      <th>Product SKU</th>-->
       <th>Name</th>
       <th>Price</th>
+      <th>Available Quantity</th>
       <th></th>
     </tr>
     </thead>
@@ -41,9 +42,10 @@
           <img th:src="${product.images[0]}" class="img-thumbnail product-image" alt="Product Image">
         </div>
       </td>
-      <td th:text="${product.SKU}"></td>
+<!--      <td th:text="${product.SKU}"></td>-->
       <td th:text="${product.name}"></td>
       <td th:text="${product.price}"></td>
+      <td th:text="${product.quantity}"></td>
       <td>
         <form th:action="@{/user/cart/add/{id}(id=${product.id})}" method="post">
           <input type="hidden" name="_method" value="post">
@@ -53,11 +55,27 @@
     </tr>
     </tbody>
   </table>
+<!--  Pagination Buttons -->
+  <div>
+    <a class="btn btn-primary" th:if="${currentPage > 0}" th:href="@{/user/products(page=0)}">First</a>
 
-  <a class="btn btn-primary" th:if="${currentPage > 0}"  th:href="@{/user/products(page=${currentPage - 1})}">Previous</a>
+    <a class="btn btn-primary" th:if="${currentPage > 0}" th:href="@{/user/products(page=${currentPage - 1})}">Previous</a>
 
-  <!-- Next Page Button -->
-  <a class="btn btn-primary"  th:href="@{/user/products(page=${currentPage + 1})}">Next</a>
+    <!-- Display current page, total pages, and options for first and last pages -->
+    <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span>
+
+    <a class="btn btn-primary" th:if="${!isLastPage}" th:href="@{/user/products(page=${currentPage + 1})}">Next</a>
+
+    <a class="btn btn-primary" th:if="${!isLastPage}" th:href="@{/user/products(page=${totalPages - 1})}">Last</a>
+  </div>
+
+  <div>
+    <!-- Page number input field -->
+    <form th:action="@{/user/products}" method="get">
+      <input type="number" name="page" min="0" max="${totalPages - 1}" placeholder="Enter page number">
+      <button type="submit" class="btn btn-primary">Go</button>
+    </form>
+  </div>
 
   <div>
     <a class="btn btn-primary mt-3" th:href="@{/user/cart}">View Cart</a>

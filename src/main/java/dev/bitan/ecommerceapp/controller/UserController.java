@@ -15,6 +15,8 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final ProductService productService;
+    private static final int PAGE_SIZE = 10;
+
     private List<Product> cart;
 
     public UserController(ProductService productService) {
@@ -24,11 +26,15 @@ public class UserController {
 
     @GetMapping("/products")
     public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
-        int pageSize = 10;
-        Page<Product> productPage = productService.findAllProducts(page, pageSize);
+        Page<Product> productPage = productService.findAllProducts(page, PAGE_SIZE);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageSize", PAGE_SIZE);
+        int totalPages = productPage.getTotalPages();
+        model.addAttribute("totalPages", totalPages);
+
+        model.addAttribute("isFirstPage", page == 0);
+        model.addAttribute("isLastPage", page == totalPages - 1);
         return "user/products";
     }
 
