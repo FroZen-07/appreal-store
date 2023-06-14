@@ -15,14 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping("/user")
 public class UserController {
     private final ProductService productService;
 
-    private final int PAGE_SIZE = 10;
-
-    private List<CartItem> cart;
+    private final List<CartItem> cart;
 
     public UserController(ProductService productService) {
         this.productService = productService;
@@ -31,6 +29,7 @@ public class UserController {
 
     @GetMapping("/products")
     public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
+        int PAGE_SIZE = 10;
         Page<Product> productPage = productService.findAllProducts(page, PAGE_SIZE);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("currentPage", page);

@@ -1,16 +1,30 @@
 package dev.bitan.ecommerceapp.model;
 
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collection = "users")
+@Data
 public class User {
+    @Id
+    private String id;
     private String username;
     private String password;
-    private String role;
+    private String roles;
     private List<CartItem> cartItems;
 
     public User() {
         this.cartItems = new ArrayList<>();
+    }
+
+    public User(String username, String password, String roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -29,12 +43,12 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public List<CartItem> getCartItems() {
