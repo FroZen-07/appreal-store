@@ -1,6 +1,6 @@
 package dev.bitan.ecommerceapp.user.service;
 
-import dev.bitan.ecommerceapp.user.model.SecurityUser;
+import dev.bitan.ecommerceapp.user.model.User;
 import dev.bitan.ecommerceapp.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,10 +20,8 @@ public class MongoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .map(SecurityUser::new)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
-                                "Username not found "+username));
-
+                                "Username not found: " + username));
     }
 }

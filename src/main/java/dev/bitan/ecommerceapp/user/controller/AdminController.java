@@ -15,20 +15,9 @@ public class AdminController {
     private final ProductService productService;
     private static final int PAGE_SIZE = 10;
 
-
     public AdminController(ProductService productService) {
         this.productService = productService;
     }
-
-//    @GetMapping("/products")
-//    public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
-//        int pageSize = 10;
-//        Page<Product> productPage = productService.findAllProducts(page, pageSize);
-//        model.addAttribute("products", productPage.getContent());
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("pageSize", pageSize);
-//        return "admin/products";
-//    }
 
     @GetMapping("/products")
     public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
@@ -38,7 +27,6 @@ public class AdminController {
         model.addAttribute("pageSize", PAGE_SIZE);
         int totalPages = productPage.getTotalPages();
         model.addAttribute("totalPages", totalPages);
-
         model.addAttribute("isFirstPage", page == 0);
         model.addAttribute("isLastPage", page == totalPages - 1);
         return "admin/products";

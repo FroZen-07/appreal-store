@@ -1,6 +1,5 @@
 package dev.bitan.ecommerceapp.user.controller;
 
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,4 @@ public class HomeController {
         model.addAttribute("role", role);
         return "index";
     }
-
-
 }

@@ -1,4 +1,5 @@
 package dev.bitan.ecommerceapp.user.controller;
+
 import dev.bitan.ecommerceapp.user.model.CartItem;
 import dev.bitan.ecommerceapp.product.model.Product;
 import dev.bitan.ecommerceapp.product.service.ProductService;
@@ -16,7 +17,6 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final ProductService productService;
-
     private final List<CartItem> cart;
 
     public UserController(ProductService productService) {
@@ -33,7 +33,6 @@ public class UserController {
         model.addAttribute("pageSize", PAGE_SIZE);
         int totalPages = productPage.getTotalPages();
         model.addAttribute("totalPages", totalPages);
-
         model.addAttribute("isFirstPage", page == 0);
         model.addAttribute("isLastPage", page == totalPages - 1);
         return "user/products";
@@ -77,15 +76,12 @@ public class UserController {
                 .orElse(null);
     }
 
-
     @GetMapping("/cart")
     public String viewCart(Model model) {
         List<Product> products = productService.getProductsInCart(cart);
         double totalPrice = productService.calculateTotalPrice(products);
-
         model.addAttribute("cart", products);
         model.addAttribute("totalPrice", totalPrice);
-
         return "user/cart";
     }
 }

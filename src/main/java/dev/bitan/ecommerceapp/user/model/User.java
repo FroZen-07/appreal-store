@@ -4,13 +4,20 @@ import dev.bitan.ecommerceapp.user.model.CartItem;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Document(collection = "users")
 @Data
-public class User {
+public class User implements UserDetails {
     @Id
     private String id;
     private String username;
@@ -28,38 +35,31 @@ public class User {
         this.roles = roles;
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(roles));
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getRoles() {
-        return roles;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
 
     public void addToCart(CartItem cartItem) {
         cartItems.add(cartItem);
@@ -68,4 +68,6 @@ public class User {
     public void removeFromCart(CartItem cartItem) {
         cartItems.remove(cartItem);
     }
+
+
 }
