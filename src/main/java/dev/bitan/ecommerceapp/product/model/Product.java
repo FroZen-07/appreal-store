@@ -1,4 +1,4 @@
-package dev.bitan.ecommerceapp.model;
+package dev.bitan.ecommerceapp.product.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

@@ -1,12 +1,9 @@
-package dev.bitan.ecommerceapp.controller;
-import dev.bitan.ecommerceapp.model.CartItem;
-import dev.bitan.ecommerceapp.model.Product;
-import dev.bitan.ecommerceapp.model.User;
-import dev.bitan.ecommerceapp.service.ProductService;
+package dev.bitan.ecommerceapp.user.controller;
+import dev.bitan.ecommerceapp.user.model.CartItem;
+import dev.bitan.ecommerceapp.product.model.Product;
+import dev.bitan.ecommerceapp.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

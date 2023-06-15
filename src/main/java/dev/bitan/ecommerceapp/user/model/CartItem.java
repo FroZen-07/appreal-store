@@ -1,7 +1,4 @@
-package dev.bitan.ecommerceapp.model;
-
-import dev.bitan.ecommerceapp.service.ProductService;
-import lombok.Data;
+package dev.bitan.ecommerceapp.user.model;
 
 public class CartItem {
     private String productId;

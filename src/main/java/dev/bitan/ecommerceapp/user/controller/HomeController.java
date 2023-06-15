@@ -1,4 +1,4 @@
-package dev.bitan.ecommerceapp.controller;
+package dev.bitan.ecommerceapp.user.controller;
 
 
 import org.springframework.security.core.Authentication;
@@ -15,6 +15,8 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         model.addAttribute("username", username);
+        String role = auth.getAuthorities().toString();
+        model.addAttribute("role", role);
         return "index";
     }
 

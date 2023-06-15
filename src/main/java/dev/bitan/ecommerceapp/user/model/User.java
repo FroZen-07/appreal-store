@@ -1,5 +1,6 @@
-package dev.bitan.ecommerceapp.model;
+package dev.bitan.ecommerceapp.user.model;
 
+import dev.bitan.ecommerceapp.user.model.CartItem;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

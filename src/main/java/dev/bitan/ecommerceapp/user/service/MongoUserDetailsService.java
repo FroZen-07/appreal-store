@@ -1,11 +1,11 @@
-package dev.bitan.ecommerceapp.service;
+package dev.bitan.ecommerceapp.user.service;
 
-import dev.bitan.ecommerceapp.repository.UserRepository;
+import dev.bitan.ecommerceapp.user.model.SecurityUser;
+import dev.bitan.ecommerceapp.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import dev.bitan.ecommerceapp.model.SecurityUser;
 
 @Service
 public class MongoUserDetailsService implements UserDetailsService {

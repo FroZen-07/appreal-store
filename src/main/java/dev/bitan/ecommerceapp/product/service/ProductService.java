@@ -1,9 +1,9 @@
-package dev.bitan.ecommerceapp.service;
+package dev.bitan.ecommerceapp.product.service;
 
 
-import dev.bitan.ecommerceapp.model.CartItem;
-import dev.bitan.ecommerceapp.model.Product;
-import dev.bitan.ecommerceapp.repository.ProductRepository;
+import dev.bitan.ecommerceapp.product.model.Product;
+import dev.bitan.ecommerceapp.product.repository.ProductRepository;
+import dev.bitan.ecommerceapp.user.model.CartItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

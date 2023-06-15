@@ -9,8 +9,8 @@
 
 <div class="container">
     <h1 class="mt-5">Welcome, <span th:text="${username}"></span>!</h1>
-    <a class="btn btn-primary mt-3" th:if="${username} == 'bitan'" href="/user/products">View Products</a>
-    <a class="btn btn-primary mt-3" th:if="${username} == 'bitan1'" href="/admin/products">View Admin Products</a>
+    <a class="btn btn-primary mt-3" th:if="${role} == '[ROLE_USER]'" href="/user/products">View Products</a>
+    <a class="btn btn-primary mt-3" th:if="${role} == '[ROLE_ADMIN]'" href="/admin/products">View Admin Products</a>
     <a class="btn btn-secondary mt-3" href="/">View Profile</a>
 </div>
 

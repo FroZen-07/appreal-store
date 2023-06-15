@@ -1,6 +1,6 @@
-package dev.bitan.ecommerceapp.repository;
+package dev.bitan.ecommerceapp.user.repository;
 
-import dev.bitan.ecommerceapp.model.User;
+import dev.bitan.ecommerceapp.user.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

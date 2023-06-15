@@ -1,7 +1,7 @@
-package dev.bitan.ecommerceapp.controller;
+package dev.bitan.ecommerceapp.user.controller;
 
-import dev.bitan.ecommerceapp.model.Product;
-import dev.bitan.ecommerceapp.service.ProductService;
+import dev.bitan.ecommerceapp.product.model.Product;
+import dev.bitan.ecommerceapp.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
