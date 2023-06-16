@@ -6,6 +6,7 @@ import dev.bitan.ecommerceapp.product.repository.ProductRepository;
 import dev.bitan.ecommerceapp.user.model.CartItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,6 +49,11 @@ public class ProductService {
         }
 
         return products;
+    }
+
+    public Page<Product> searchProductsByName(String name, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return productRepository.findByNameContainingIgnoreCase(name, pageable);
     }
 
     public double calculateTotalPrice(List<Product> products) {

@@ -16,6 +16,27 @@
 <div th:replace="_navbar :: _navbar"></div>
 <div class="container">
   <h1>User Products</h1>
+
+  <!-- Add a search form -->
+  <form th:action="@{/user/products}" method="get">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by name" name="searchName">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+  </form>
+
+  <!-- Display search results -->
+  <h3 th:if="${searchResults}">Search Results:</h3>
+  <table class="table">
+    <!-- table headers -->
+    <tbody>
+    <tr th:each="product : ${searchResults}">
+      <!-- table rows for search results -->
+    </tr>
+    </tbody>
+  </table>
+
+
   <table class="table">
     <thead>
     <tr>

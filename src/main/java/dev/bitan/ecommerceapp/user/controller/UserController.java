@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,22 +26,40 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
     @GetMapping("/products")
-    public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
-        int PAGE_SIZE = 10;
-        Page<Product> productPage = productService.findAllProducts(page, PAGE_SIZE);
-        model.addAttribute("products", productPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageSize", PAGE_SIZE);
+    public String getAllProducts(Model model, @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(required = false) String searchName) {
+        int pageSize = 10;
+        Page<Product> productPage;
+        List<Product> products;
+
+        if (searchName != null && !searchName.isEmpty()) {
+            // Perform search based on product name
+            productPage = productService.searchProductsByName(searchName, page, pageSize);
+            products = productPage.getContent();
+        } else {
+            // Retrieve paginated list of products
+            productPage = productService.findAllProducts(page, pageSize);
+            products = productPage.getContent();
+        }
+
         int totalPages = productPage.getTotalPages();
+        boolean isLastPage = page == totalPages - 1;
+
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("isFirstPage", page == 0);
-        model.addAttribute("isLastPage", page == totalPages - 1);
+        model.addAttribute("isLastPage", isLastPage);
         model.addAttribute("quantity", 0);
+
+        if (searchName != null && !searchName.isEmpty()) {
+            model.addAttribute("searchResults", products);
+        } else {
+            model.addAttribute("searchResults", null);
+        }
+
         return "user/products";
     }
-
 
     @PostMapping("/cart/add/{id}")
     public String addToCart(@PathVariable("id") String productId, @RequestParam("quantity") int quantity, Principal principal) {
@@ -75,7 +92,6 @@ public class UserController {
         return "redirect:/user/cart";
     }
 
-
     @PostMapping("/cart/remove/{id}")
     public String removeFromCart(@PathVariable("id") String productId, Principal principal) {
         User user = userRepository.findByUsername(principal.getName())
@@ -101,7 +117,6 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/user/cart";
     }
-
 
     @GetMapping("/cart")
     public String viewCart(Model model, Principal principal) {
