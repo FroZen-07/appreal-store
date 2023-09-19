@@ -4,7 +4,7 @@ Closet Collective is an online clothing marketplace that allows you to buy, sell
 
 ## Demo
 
-You can view the deployed version of the app [here].
+You can view the deployed version of the app [here]. (Currently the deployment is on hold)
 
 ## Installation
 
